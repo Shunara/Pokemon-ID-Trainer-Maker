@@ -1,0 +1,46 @@
+function doGet() {
+
+  return HtmlService.createHtmlOutputFromFile('Index');
+
+}
+
+
+function Poke(pokemon){
+  var sheet = SpreadsheetApp.openById("12VKX_c-bd52RSSz3nbzVEFJTnldp2wYQNrBWiiJXRfg").getSheetByName("Pokemon");
+
+  var pokemon = Array(807);
+
+  for(i=2;i<809;i++){
+
+    pokemon[i-2]=sheet.getRange(i,2).getValue();
+
+  }
+
+  return(pokemon);
+}
+
+
+function Poke2(pokemon){
+  var sheet = SpreadsheetApp.openById("12VKX_c-bd52RSSz3nbzVEFJTnldp2wYQNrBWiiJXRfg").getSheetByName("Pokemon");
+
+  var image = Array(6);
+
+  for(i=2;i<809;i++){
+
+    if(sheet.getRange(i,2).getValue()==pokemon[0]) image[0]=sheet.getRange(i,11).getValue();
+    if(sheet.getRange(i,2).getValue()==pokemon[1]) image[1]=sheet.getRange(i,11).getValue();
+    if(sheet.getRange(i,2).getValue()==pokemon[2]) image[2]=sheet.getRange(i,11).getValue();
+    if(sheet.getRange(i,2).getValue()==pokemon[3]) image[3]=sheet.getRange(i,11).getValue();
+    if(sheet.getRange(i,2).getValue()==pokemon[4]) image[4]=sheet.getRange(i,11).getValue();
+    if(sheet.getRange(i,2).getValue()==pokemon[5]) image[5]=sheet.getRange(i,11).getValue();
+
+  }
+
+  for(i=0;i<6;i++){
+
+    if(image[i]==null) image[i]="https://assets.stickpng.com/images/580b57fcd9996e24bc43c31e.png";
+
+  }
+  
+  return image;
+}
