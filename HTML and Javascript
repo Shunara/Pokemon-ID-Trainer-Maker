@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <style>
+.poke {
+  border-radius: 50%;
+}
+.back{
+  
+}
+.
+</style>
+<body onload="myFunction()" id="Form_1">
+
+<form> 
+  <select id="mySelect" value="Choose your pokemon"> 
+  </select>
+</form>
+<br>
+<button type="button" onclick="myFunction3()">Add pokemon</button>
+<br><br><br>
+<div id="Poke_selected0">None</div> 
+<button type="button" onclick="myFunction40()">Remove pokemon</button>
+<br>
+<div id="Poke_selected1">None</div>
+<button type="button" onclick="myFunction41()">Remove pokemon</button>
+<br>
+<div id="Poke_selected2">None</div>
+<button type="button" onclick="myFunction42()">Remove pokemon</button>
+<br>
+<div id="Poke_selected3">None</div>
+<button type="button" onclick="myFunction43()">Remove pokemon</button>
+<br>
+<div id="Poke_selected4">None</div>
+<button type="button" onclick="myFunction44()">Remove pokemon</button>
+<br>
+<div id="Poke_selected5">None</div>
+<button type="button" onclick="myFunction45()">Remove pokemon</button>
+<br>
+Trainer Name:
+<br>
+<input type="text" id="name"></input>
+<br>
+FC:
+<br>
+<input type="text" id="fc"></input>
+<br>
+Select the color for the background:
+<br>
+<input type="color" id="favcolor" name="favcolor" value="#FFFFFF">
+<br><br><br>
+<button type="button" onclick="myFunction5()">Finish</button>
+<br>
+<div id="Please_Wait">
+
+<script>
+
+function myFunction() {
+    google.script.run
+    .withSuccessHandler(function (Pokemon){
+    Pokemon.forEach(myFunction2);
+    })
+    .withFailureHandler(function(err){
+    console.log(err);
+    })
+    .Poke();
+    }
+
+function myFunction2(Pokemon,index){
+  var x = document.getElementById("mySelect");
+  var option = document.createElement("option");
+  option.text = Pokemon;
+  x.add(option);
+}
+
+function myFunction3(){
+  var x = document.getElementById("mySelect").selectedIndex;
+  var y = "";
+  for(i=0;i<6;i++){
+    if(document.getElementById("Poke_selected"+i).innerHTML=='None'){
+      if(y==""){
+        document.getElementById("Poke_selected"+i).innerHTML = document.getElementsByTagName("option")[x].value;
+        y="OK";
+      }
+    }
+  }
+}
+
+function myFunction40(){
+document.getElementById("Poke_selected0").innerHTML="None";
+}
+function myFunction41(){
+document.getElementById("Poke_selected1").innerHTML="None";
+}
+function myFunction42(){
+document.getElementById("Poke_selected2").innerHTML="None";
+}
+function myFunction43(){
+document.getElementById("Poke_selected3").innerHTML="None";
+}
+function myFunction44(){
+document.getElementById("Poke_selected4").innerHTML="None";
+}
+function myFunction45(){
+document.getElementById("Poke_selected5").innerHTML="None";
+}
+
+function myFunction5(){
+    
+    document.getElementById("Please_Wait").innerHTML = "Please wait...";
+    var name_trainer = document.getElementById("name").value; //Trainer Name
+    var fc = document.getElementById("fc").value; //Friend Code (FC)
+    var team = new Array(6);
+    var z = document.getElementById("favcolor").value;
+
+    if(document.getElementById("Poke_selected0").innerHTML!="None") team[0]=document.getElementById("Poke_selected0").innerHTML;
+    if(document.getElementById("Poke_selected1").innerHTML!="None") team[1]=document.getElementById("Poke_selected1").innerHTML;
+    if(document.getElementById("Poke_selected2").innerHTML!="None") team[2]=document.getElementById("Poke_selected2").innerHTML;
+    if(document.getElementById("Poke_selected3").innerHTML!="None") team[3]=document.getElementById("Poke_selected3").innerHTML;
+    if(document.getElementById("Poke_selected4").innerHTML!="None") team[4]=document.getElementById("Poke_selected4").innerHTML;
+    if(document.getElementById("Poke_selected5").innerHTML!="None") team[5]=document.getElementById("Poke_selected5").innerHTML;
+
+
+    google.script.run
+    .withSuccessHandler(function (Pokemon){
+    document.getElementById("Form_1").innerHTML=
+    "<canvas id='myCanvas' width='750' height='520' style='border:1px solid #d3d3d3;'>"+
+    "Your browser does not support the HTML canvas tag.</canvas>"+"<br>";
+
+    var col = Math.random();
+    if(col>0.5){
+     w = "https://cdn2.bulbagarden.net/upload/thumb/d/db/FireRed_LeafGreen_Blue.png/150px-FireRed_LeafGreen_Blue.png"; //Blue Trainer
+     wi = 150;
+     he = 250;
+    }
+
+    if(col<=0.5){
+      w = "https://cdn2.bulbagarden.net/upload/thumb/8/83/FireRed_LeafGreen_Red.png/116px-FireRed_LeafGreen_Red.png"; //Red Trainer
+      wi = 116;
+      he = 250;
+    }
+
+
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.beginPath();
+    ctx.rect(0, 0, 750, 520);
+    ctx.fillStyle = z;
+    ctx.fill();
+    
+
+    ctx.font = "30px Times New Roman";
+    ctx.strokeText("Trainer:", 10, 310);
+    ctx.strokeText(name_trainer, 10, 350);
+    ctx.strokeText("FC:", 10, 390);
+    ctx.strokeText(fc, 10, 430);
+
+    //Trainers
+    var trainer = new Image;
+    trainer.src = w;
+    trainer.onload = function(){
+      ctx.drawImage(trainer,20,20,wi,he);
+    }
+
+    //Poke 0:
+    ctx.fillStyle = "#c82124";
+    ctx.beginPath();
+    ctx.arc(480, 90, 75, Math.PI, 2*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(480, 90, 75, 0, Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    //Poke 1
+    ctx.fillStyle = "#c82124";
+    ctx.beginPath();
+    ctx.arc(650, 90, 75, Math.PI, 2*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(650, 90, 75, 0, Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    //Poke 2
+    ctx.fillStyle = "#c82124";
+    ctx.beginPath();
+    ctx.arc(480, 260, 75, Math.PI, 2*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(480, 260, 75, 0, Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    //Poke 3
+    ctx.fillStyle = "#c82124";
+    ctx.beginPath();
+    ctx.arc(650, 260, 75, Math.PI, 2*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(650, 260, 75, 0, Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    //Poke 4
+    ctx.fillStyle = "#c82124";
+    ctx.beginPath();
+    ctx.arc(480, 430, 75, Math.PI, 2*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(480, 430, 75, 0, Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    //Poke 5
+    ctx.fillStyle = "#c82124";
+    ctx.beginPath();
+    ctx.arc(650, 430, 75, Math.PI, 2*Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(650, 430, 75, 0, Math.PI);
+    ctx.closePath();
+    ctx.fill();
+
+
+    //Poke 0
+    var poke0 = new Image;
+    poke0.src = Pokemon[0];
+    poke0.onload = function(){
+      ctx.drawImage(poke0,405,15,150,150);
+    }
+
+    //Poke 1
+    var poke1 = new Image;
+    poke1.src = Pokemon[1];
+    poke1.onload = function(){
+      ctx.drawImage(poke1,575,15,150,150);
+    }
+
+    //Poke 2
+    var poke2 = new Image;
+    poke2.src = Pokemon[2];
+    poke2.onload = function(){
+      ctx.drawImage(poke2,405,195,150,150);
+    }
+
+    //Poke 3
+    var poke3 = new Image;
+    poke3.src = Pokemon[3];
+    poke3.onload = function(){
+      ctx.drawImage(poke3,575,195,150,150);
+    }
+
+    //Poke 4
+    var poke4 = new Image;
+    poke4.src = Pokemon[4];
+    poke4.onload = function(){
+      ctx.drawImage(poke4,405,355,150,150);
+    }
+
+    //Poke 5
+    var poke5 = new Image;
+    poke5.src = Pokemon[5];
+    poke5.onload = function(){
+      ctx.drawImage(poke5,575,355,150,150);
+    }
+
+    }
+    )
+    .withFailureHandler(function(err){
+    console.log(err);
+    })
+    .Poke2(team);
+}
+
+
+</script>
+
+</body>
+</html>
